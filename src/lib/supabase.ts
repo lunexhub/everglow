@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_PROJECT_URL = 'https://qndtxtwwuqofmlncwweq.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFuZHR4dHd3dXFvZm1sbmN3d2VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0MTU1NzcsImV4cCI6MjEwMDk5MTU3N30.IKx7MQ-YbAhsWjFIqhxT4A6gj9bCUHAcW2A-mDv9P9g';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFuZHR4dHd3dXFvZm1sbmN3d2VxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NTQxNTU3NywiZXhwIjoyMTAwOTkxNTc3fQ.C2kDVSsUkaLVKuEUK_ac_o3fDnNL0hH7xv-el2jB8uA';
 
 const getValidUrl = (raw: any): string => {
   if (!raw || typeof raw !== 'string') return SUPABASE_PROJECT_URL;
