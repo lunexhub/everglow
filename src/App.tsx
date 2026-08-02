@@ -263,8 +263,114 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#FFF1F5] text-slate-900 flex flex-col">
-      {/* Top Mobile Header */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-pink-100 px-4 py-2.5 flex items-center justify-between shadow-2xs">
+      {/* Desktop Sticky Left Sidebar (≥ 1024px) */}
+      <aside className="hidden lg:flex fixed inset-y-0 left-0 w-64 bg-white border-r border-pink-100/90 flex-col z-30 shadow-xs justify-between p-5">
+        <div className="space-y-6">
+          {/* Brand Header */}
+          <div className="flex items-center gap-3 pb-4 border-b border-pink-100">
+            <EverglowLogo size="md" showSubtext={false} />
+            <div>
+              <h1 className="text-base font-extrabold font-brand-serif text-slate-900 tracking-tight leading-none">
+                Everglow <span className="text-[#8B6508]">Community</span>
+              </h1>
+              <p className="text-[9px] font-semibold text-slate-500 italic mt-1">
+                "Beauty in Every Glow"
+              </p>
+            </div>
+          </div>
+
+          {/* User Profile Badge Card */}
+          <div className="p-3 bg-gradient-to-r from-amber-50 to-pink-50/60 rounded-xl border border-amber-200/60 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-slate-900 truncate max-w-[120px]">
+                {currentUser.full_name || currentUser.email.split('@')[0]}
+              </span>
+              <span className={`text-[9px] font-black px-2 py-0.5 rounded-full uppercase ${currentUser.role === 'admin' ? 'bg-amber-200 text-amber-900 border border-amber-300' : 'bg-pink-100 text-pink-800'}`}>
+                {currentUser.role}
+              </span>
+            </div>
+            <p className="text-[10px] text-slate-500 font-mono">
+              Code: <strong className="text-[#8B6508]">{currentUser.sponsor_id}</strong>
+            </p>
+          </div>
+
+          {/* Sidebar Navigation Items */}
+          <nav className="space-y-1.5">
+            <button
+              onClick={() => changeTab('store')}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'store' ? 'bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-slate-900 shadow-xs' : 'text-slate-600 hover:bg-pink-50 hover:text-slate-900'}`}
+            >
+              <ShoppingBag className="w-4 h-4" />
+              <span>Product Store</span>
+            </button>
+
+            <button
+              onClick={() => changeTab('wallet')}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'wallet' ? 'bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-slate-900 shadow-xs' : 'text-slate-600 hover:bg-pink-50 hover:text-slate-900'}`}
+            >
+              <Wallet className="w-4 h-4" />
+              <span>Earnings & Wallet</span>
+            </button>
+
+            <button
+              onClick={() => changeTab('network')}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'network' ? 'bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-slate-900 shadow-xs' : 'text-slate-600 hover:bg-pink-50 hover:text-slate-900'}`}
+            >
+              <Network className="w-4 h-4" />
+              <span>Genealogy Tree</span>
+            </button>
+
+            <button
+              onClick={() => changeTab('orders')}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'orders' ? 'bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-slate-900 shadow-xs' : 'text-slate-600 hover:bg-pink-50 hover:text-slate-900'}`}
+            >
+              <Package className="w-4 h-4" />
+              <span>My Orders</span>
+            </button>
+
+            {currentUser.role === 'admin' && (
+              <button
+                onClick={() => changeTab('admin')}
+                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === 'admin' ? 'bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-slate-900 shadow-xs' : 'text-slate-600 hover:bg-pink-50 hover:text-slate-900'}`}
+              >
+                <Crown className="w-4 h-4 text-[#8B6508]" />
+                <span>Admin Dashboard</span>
+              </button>
+            )}
+          </nav>
+        </div>
+
+        {/* Sidebar Bottom Widgets & Logout */}
+        <div className="space-y-3 pt-4 border-t border-pink-100">
+          {/* Quick Wallet Widget */}
+          <div className="p-3 bg-slate-900 text-white rounded-xl space-y-1 shadow-xs">
+            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Available Wallet</span>
+            <div className="text-base font-extrabold text-[#D4AF37]">
+              R{(currentUser.wallet_balance || 0).toFixed(2)}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsSettingsOpen(true)}
+              className="flex-1 py-2 px-3 bg-pink-50 hover:bg-pink-100 text-[#8B6508] border border-pink-200 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <Settings className="w-4 h-4" />
+              <span>Settings</span>
+            </button>
+            <button
+              onClick={handleLogout}
+              className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl transition-colors cursor-pointer"
+              title="Sign Out"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {/* Top Mobile Header (< 1024px) */}
+      <header className="lg:hidden sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-pink-100 px-4 py-2.5 flex items-center justify-between shadow-2xs">
         <div className="flex items-center gap-2">
           <EverglowLogo size="sm" showSubtext={false} />
           <div>
@@ -308,14 +414,14 @@ export function App() {
 
       {/* Toast Notification Banner */}
       {notificationMsg && (
-        <div className="fixed top-14 left-4 right-4 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-xl border border-amber-400 flex items-center gap-2 animate-bounce">
+        <div className="fixed top-14 left-4 right-4 lg:left-72 lg:right-8 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-xl border border-amber-400 flex items-center gap-2 animate-bounce">
           <Bell className="w-4 h-4 text-[#D4AF37] shrink-0" />
           <span>{notificationMsg}</span>
         </div>
       )}
 
-      {/* Main Content Area */}
-      <main className="flex-1 p-4 max-w-lg mx-auto w-full">
+      {/* Main Content Area (Responsive Grid Container) */}
+      <main className="flex-1 p-4 max-w-lg mx-auto w-full lg:ml-64 lg:max-w-7xl lg:p-8">
         {activeTab === 'store' && (
           <StoreView
             products={productsList}
@@ -367,8 +473,8 @@ export function App() {
         )}
       </main>
 
-      {/* Mobile Bottom Navigation Bar */}
-      <nav className="bottom-nav flex items-center justify-around">
+      {/* Mobile Bottom Navigation Bar (< 1024px) */}
+      <nav className="bottom-nav lg:hidden flex items-center justify-around">
         <button
           onClick={() => changeTab('store')}
           className={activeTab === 'store' ? 'nav-pill-active' : 'nav-pill-inactive'}

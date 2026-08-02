@@ -204,13 +204,14 @@ export const StoreView: React.FC<StoreViewProps> = ({
           </p>
         </div>
       ) : (
-        filteredProducts.map((p) => {
-          const qtyInCart = cart[p.id] || 0;
-          const totalRetailValue = p.pack_size * p.retail_price_unit;
-          const memberProfit = totalRetailValue - p.wholesale_price;
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {filteredProducts.map((p) => {
+            const qtyInCart = cart[p.id] || 0;
+            const totalRetailValue = p.pack_size * p.retail_price_unit;
+            const memberProfit = totalRetailValue - p.wholesale_price;
 
-          return (
-            <div key={p.id} className="card-white p-4 space-y-3 relative overflow-hidden">
+            return (
+              <div key={p.id} className="card-white p-4 space-y-3 relative overflow-hidden flex flex-col justify-between">
               {p.is_combo && (
                 <span className="absolute top-3 right-3 z-10 bg-pink-100 text-pink-700 text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-pink-200 shadow-xs">
                   Custom Combo
@@ -363,8 +364,9 @@ export const StoreView: React.FC<StoreViewProps> = ({
               </div>
             </div>
           );
-        }))}
+        })}
       </div>
+    )}
 
       {/* Floating Shopping Trolley & Basket Component */}
       {getCartCount() > 0 && (

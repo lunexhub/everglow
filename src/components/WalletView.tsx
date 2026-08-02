@@ -69,48 +69,50 @@ export const WalletView: React.FC<WalletViewProps> = ({
   };
 
   return (
-    <div className="space-y-4 pb-20">
-      {/* Wallet Balance Hero Card */}
-      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950 text-white rounded-2xl p-5 shadow-xl border border-amber-500/20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+    <div className="space-y-5 pb-20">
+      {/* Wallet Overview 3-Column Desktop Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {/* Wallet Balance Hero Card */}
+        <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950 text-white rounded-2xl p-5 shadow-xl border border-amber-500/20 relative overflow-hidden flex flex-col justify-between">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <div className="p-2 bg-amber-500/20 text-[#D4AF37] rounded-xl">
-              <Wallet className="w-5 h-5" />
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-amber-500/20 text-[#D4AF37] rounded-xl">
+                <Wallet className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold tracking-wider text-amber-200/70 uppercase">
+                  Available Wallet Balance
+                </p>
+                <h2 className="text-3xl font-extrabold font-brand-serif text-white">
+                  R{member.wallet_balance.toFixed(2)}
+                </h2>
+              </div>
             </div>
-            <div>
-              <p className="text-[10px] font-bold tracking-wider text-amber-200/70 uppercase">
-                Available Wallet Balance
-              </p>
-              <h2 className="text-3xl font-extrabold font-brand-serif text-white">
-                R{member.wallet_balance.toFixed(2)}
-              </h2>
-            </div>
+
+            <button
+              onClick={() => generateEarningsStatementPDF(member, transactions)}
+              className="p-2 bg-white/10 hover:bg-white/20 text-amber-200 rounded-xl transition-colors text-xs font-semibold flex items-center gap-1 cursor-pointer"
+              title="Download PDF Earnings Statement"
+            >
+              <Download className="w-4 h-4" />
+              <span className="hidden sm:inline">Statement</span>
+            </button>
           </div>
 
-          <button
-            onClick={() => generateEarningsStatementPDF(member, transactions)}
-            className="p-2 bg-white/10 hover:bg-white/20 text-amber-200 rounded-xl transition-colors text-xs font-semibold flex items-center gap-1"
-            title="Download PDF Earnings Statement"
-          >
-            <Download className="w-4 h-4" />
-            <span className="hidden sm:inline">Statement</span>
-          </button>
-        </div>
-
-        {/* Lifetime Earnings Metric */}
-        <div className="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-1.5 text-slate-300">
-            <TrendingUp className="w-4 h-4 text-emerald-400" />
-            <span>Lifetime Earnings:</span>
+          {/* Lifetime Earnings Metric */}
+          <div className="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs">
+            <div className="flex items-center gap-1.5 text-slate-300">
+              <TrendingUp className="w-4 h-4 text-emerald-400" />
+              <span>Lifetime Earnings:</span>
+            </div>
+            <span className="font-bold text-amber-300">R{member.lifetime_earnings.toFixed(2)}</span>
           </div>
-          <span className="font-bold text-amber-300">R{member.lifetime_earnings.toFixed(2)}</span>
         </div>
-      </div>
 
-      {/* R500 Minimum Cash-Out Threshold Enforcer */}
-      <div className="card-white p-4">
+        {/* R500 Minimum Cash-Out Threshold Enforcer */}
+        <div className="card-white p-5 flex flex-col justify-between">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             {isUnlocked ? (
@@ -191,7 +193,7 @@ export const WalletView: React.FC<WalletViewProps> = ({
       </div>
 
       {/* 15-Recruit Milestone Tracker Card */}
-      <div className="card-white p-4">
+      <div className="card-white p-5 flex flex-col justify-between">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <div className="p-1.5 bg-pink-100 text-pink-600 rounded-lg">
@@ -217,6 +219,7 @@ export const WalletView: React.FC<WalletViewProps> = ({
             style={{ width: `${recruitProgress}%` }}
           ></div>
         </div>
+      </div>
       </div>
 
       {/* Bank Audit Transaction Ledger */}
