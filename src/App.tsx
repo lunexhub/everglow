@@ -365,6 +365,21 @@ export function App() {
             showNotification={showNotification}
           />
         )}
+
+        {/* Global Page Footer */}
+        <footer className="text-center py-6 pb-28 text-xs font-bold text-slate-500 border-t border-slate-200/60 mt-8">
+          <p>
+            Built by{' '}
+            <a
+              href="https://wa.me/27789992503?text=Hi%20LunexWeb,%20I'm%20inquiring%20about%20web%20development"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#8B6508] font-extrabold hover:underline"
+            >
+              lunexweb.com
+            </a>
+          </p>
+        </footer>
       </main>
 
       {/* Mobile Bottom Navigation Bar */}
