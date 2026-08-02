@@ -450,67 +450,36 @@ export const signInWithSupabase = async (email: string, pass: string): Promise<{
     });
 
     if (authError) {
-      // 1. Check if profile exists directly in profiles table by email
-      const { data: existingProfile } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('email', normalizedEmail)
-        .single();
+      return { profile: null, error: authError.message };
+    }
 
-      if (existingProfile) {
-        return { profile: existingProfile as Profile, error: null };
-      }
-
-      // 2. Fallback for Master Admin emails on first-time setup
-      if (isAdmin && pass.length >= 6) {
-        const adminProfile: Profile = {
-          id: normalizedEmail === 'ntebogeng2016@gmail.com' ? '00000000-0000-0000-0000-000000000002' : '00000000-0000-0000-0000-000000000001',
-          email: normalizedEmail,
-          full_name: 'Everglow Master Admin',
-          phone: '+27 11 948 1200',
-          sponsor_id: 'EG-0001',
+    if (authData.user) {
+      let profile = await fetchProfileFromSupabase(authData.user.id);
+      
+      if (!profile) {
+        // First-time sign-in for newly created Auth user, construct profile in database
+        const createdProfile: Profile = {
+          id: authData.user.id,
+          email: authData.user.email || normalizedEmail,
+          full_name: isAdmin ? 'Everglow Master Admin' : (authData.user.user_metadata?.full_name || normalizedEmail.split('@')[0]),
+          phone: authData.user.user_metadata?.phone || '',
+          sponsor_id: isAdmin ? 'EG-0001' : await generateUniqueSponsorId(),
           upline_id: null,
-          role: 'admin',
+          role: isAdmin ? 'admin' : 'member',
           status: 'active',
           wallet_balance: 0.00,
           lifetime_earnings: 0.00,
           direct_recruits_count: 0,
           created_at: new Date().toISOString()
         };
-        await supabase.from('profiles').upsert([adminProfile]);
-        return { profile: adminProfile, error: null };
+        await supabase.from('profiles').upsert([createdProfile]);
+        profile = createdProfile;
+      } else if (isAdmin && profile.role !== 'admin') {
+        profile = { ...profile, role: 'admin', status: 'active' };
+        await supabase.from('profiles').update({ role: 'admin', status: 'active' }).eq('id', profile.id);
       }
-      return { profile: null, error: authError.message };
-    }
 
-    if (authData.user) {
-      const profile = await fetchProfileFromSupabase(authData.user.id);
-      if (profile) {
-        // Ensure recognized admin emails always have admin role (even if DB has wrong role)
-        if (isAdmin && profile.role !== 'admin') {
-          const correctedProfile = { ...profile, role: 'admin' as const, status: 'active' as const };
-          await supabase.from('profiles').update({ role: 'admin', status: 'active' }).eq('id', profile.id);
-          return { profile: correctedProfile, error: null };
-        }
-        return { profile, error: null };
-      }
-      
-      const createdProfile: Profile = {
-        id: authData.user.id,
-        email: authData.user.email || email,
-        full_name: isAdmin ? 'Everglow Master Admin' : (authData.user.user_metadata?.full_name || email.split('@')[0]),
-        phone: authData.user.user_metadata?.phone || '',
-        sponsor_id: isAdmin ? 'EG-0001' : `EG-${Math.floor(1000 + Math.random() * 9000)}`,
-        upline_id: null,
-        role: isAdmin ? 'admin' : 'member',
-        status: 'active',
-        wallet_balance: 0.00,
-        lifetime_earnings: 0.00,
-        direct_recruits_count: 0,
-        created_at: new Date().toISOString()
-      };
-      await supabase.from('profiles').upsert([createdProfile]);
-      return { profile: createdProfile, error: null };
+      return { profile, error: null };
     }
 
     return { profile: null, error: 'User account not found' };

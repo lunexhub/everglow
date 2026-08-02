@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Lock, User, Phone, KeyRound, Upload, CheckCircle, Crown, ArrowRight, ShieldCheck, UserCheck, MessageSquare, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, User, Phone, KeyRound, Upload, CheckCircle, Crown, ArrowRight, ShieldCheck, UserCheck, MessageSquare, Eye, EyeOff, RefreshCw } from 'lucide-react';
 import { Profile } from '../types';
 import { EverglowLogo } from './EverglowLogo';
 import { signInWithSupabase, signUpWithSupabase } from '../lib/supabaseService';
@@ -19,6 +19,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
   const [isAutoFilledSponsor, setIsAutoFilledSponsor] = useState(false);
   const [popFile, setPopFile] = useState<File | null>(null);
   const [popPreview, setPopPreview] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
@@ -57,7 +58,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
       return;
     }
 
+    setIsSubmitting(true);
     const { profile, error } = await signInWithSupabase(email, password);
+    setIsSubmitting(false);
+
     if (error || !profile) {
       setErrorMsg(error || 'Failed to sign in. Please verify your credentials.');
       return;
@@ -77,7 +81,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
       return;
     }
 
+    setIsSubmitting(true);
     const { profile, error } = await signUpWithSupabase(email, password, fullName, phone, targetSponsor);
+    setIsSubmitting(false);
+
     if (error || !profile) {
       setErrorMsg(error || 'Registration failed. Please try again.');
       return;
@@ -179,9 +186,22 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
                 </button>
               </div>
 
-              <button type="submit" className="btn-gold flex items-center justify-center gap-2">
-                <span>Sign In To Portal</span>
-                <ArrowRight className="w-4 h-4" />
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn-gold flex items-center justify-center gap-2 disabled:opacity-80 disabled:cursor-not-allowed cursor-pointer"
+              >
+                {isSubmitting ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin text-slate-900" />
+                    <span>Authenticating with Supabase...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Sign In To Portal</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </form>
           ) : (
@@ -211,25 +231,40 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
                 </div>
                 <p className="text-[10px] text-slate-500 mt-1 italic">
                   {sponsorId ? (
-                    <>Registering under Sponsor ID: <span className="font-bold text-[#8B6508]">{sponsorId}</span></>
+                    <span>Sponsor code <strong className="text-slate-700 font-bold">{sponsorId}</strong> attached.</span>
                   ) : (
-                    <>Enter your sponsor's code (or <span className="font-bold text-[#8B6508]">EG-0001</span> for Company Master)</>
+                    <span>Defaulting to Master Admin code <strong className="text-slate-700 font-bold">EG-0001</strong>.</span>
                   )}
                 </p>
               </div>
 
-              <div className="auth-input-container">
-                <User className="auth-input-icon" />
-                <input
-                  type="text"
-                  required
-                  placeholder="Full Name"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  className="auth-input"
-                />
+              {/* Full Name & Phone Number */}
+              <div className="grid grid-cols-2 gap-2">
+                <div className="auth-input-container">
+                  <User className="auth-input-icon" />
+                  <input
+                    type="text"
+                    required
+                    placeholder="Full Name"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    className="auth-input text-xs"
+                  />
+                </div>
+                <div className="auth-input-container">
+                  <Phone className="auth-input-icon" />
+                  <input
+                    type="tel"
+                    required
+                    placeholder="Phone / WhatsApp"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="auth-input text-xs"
+                  />
+                </div>
               </div>
 
+              {/* Email & Password */}
               <div className="auth-input-container">
                 <Mail className="auth-input-icon" />
                 <input
@@ -243,23 +278,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
               </div>
 
               <div className="auth-input-container">
-                <Phone className="auth-input-icon" />
-                <input
-                  type="tel"
-                  required
-                  placeholder="WhatsApp Mobile Number (+27...)"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="auth-input"
-                />
-              </div>
-
-              <div className="auth-input-container">
                 <Lock className="auth-input-icon" />
                 <input
                   type={showSignUpPassword ? 'text' : 'password'}
                   required
-                  placeholder="Password"
+                  placeholder="Create Password (min 6 characters)"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="auth-input pr-10"
@@ -275,11 +298,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
                 </button>
               </div>
 
-              {/* Mandatory R100 Registration Fee via WhatsApp */}
-              <div className="p-3.5 bg-amber-50/70 rounded-xl border border-amber-200 space-y-2">
+              {/* Mandatory Registration Notice */}
+              <div className="p-3 bg-gradient-to-r from-amber-50 to-amber-100/60 rounded-xl border border-amber-200/80 space-y-1.5 text-slate-800">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-900">R100 Registration Fee POP</span>
-                  <span className="text-[10px] font-extrabold bg-[#D4AF37] text-slate-900 px-2 py-0.5 rounded-full">
+                  <span className="text-[11px] font-extrabold text-[#8B6508] uppercase tracking-wide">
+                    R100 Registration Fee
+                  </span>
+                  <span className="px-2 py-0.5 bg-amber-200/80 text-amber-900 rounded-full text-[9px] font-bold">
                     Mandatory
                   </span>
                 </div>
@@ -298,9 +323,22 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
                 </a>
               </div>
 
-              <button type="submit" className="btn-gold mt-2 flex items-center justify-center gap-2">
-                <span>Register & Open WhatsApp POP (+27 72 916 2168)</span>
-                <ArrowRight className="w-4 h-4" />
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn-gold mt-2 flex items-center justify-center gap-2 disabled:opacity-80 disabled:cursor-not-allowed cursor-pointer"
+              >
+                {isSubmitting ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin text-slate-900" />
+                    <span>Registering Account...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Register & Open WhatsApp POP (+27 72 916 2168)</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </form>
           )}
