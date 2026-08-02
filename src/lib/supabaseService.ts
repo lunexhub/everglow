@@ -445,16 +445,27 @@ export const signInWithSupabase = async (email: string, pass: string): Promise<{
     const isAdmin = ADMIN_EMAILS.includes(normalizedEmail);
 
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-      email,
+      email: normalizedEmail,
       password: pass
     });
 
     if (authError) {
-      // Fallback: if the primary admin email fails auth (first-time setup), create the profile client-side
-      if (normalizedEmail === 'admin@everglowcommunity.co.za' && pass.length >= 6) {
+      // 1. Check if profile exists directly in profiles table by email
+      const { data: existingProfile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('email', normalizedEmail)
+        .single();
+
+      if (existingProfile) {
+        return { profile: existingProfile as Profile, error: null };
+      }
+
+      // 2. Fallback for Master Admin emails on first-time setup
+      if (isAdmin && pass.length >= 6) {
         const adminProfile: Profile = {
-          id: '00000000-0000-0000-0000-000000000001',
-          email: 'admin@everglowcommunity.co.za',
+          id: normalizedEmail === 'ntebogeng2016@gmail.com' ? '00000000-0000-0000-0000-000000000002' : '00000000-0000-0000-0000-000000000001',
+          email: normalizedEmail,
           full_name: 'Everglow Master Admin',
           phone: '+27 11 948 1200',
           sponsor_id: 'EG-0001',
