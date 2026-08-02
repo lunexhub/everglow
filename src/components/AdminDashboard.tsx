@@ -651,7 +651,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
           <button
             type="button"
-            onClick={() => handleCopyText('admin-ref', `https://everglowcommunity.co.za/?sponsor=${admin.sponsor_id || 'EG-0001'}`, 'acc')}
+            onClick={() => handleCopyText('admin-ref', `https://everglowcommunity.co.za/?sponsor=${admin.sponsor_id || 'EG-0001'}&name=${encodeURIComponent(admin.full_name || 'Admin')}`, 'acc')}
             className="px-3 py-2 bg-[#D4AF37] hover:bg-amber-500 text-slate-900 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors"
           >
             <Copy className="w-3.5 h-3.5" />
@@ -659,7 +659,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </button>
         </div>
         <div className="p-2.5 bg-white/80 rounded-xl border border-pink-100 flex items-center justify-between text-xs font-mono text-slate-700">
-          <span className="truncate">https://everglowcommunity.co.za/?sponsor={admin.sponsor_id || 'EG-0001'}</span>
+          <span className="truncate">https://everglowcommunity.co.za/?sponsor={admin.sponsor_id || 'EG-0001'}&name={encodeURIComponent(admin.full_name || 'Admin')}</span>
           <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
             Active Root Node
           </span>

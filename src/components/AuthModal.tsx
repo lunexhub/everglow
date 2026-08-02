@@ -16,6 +16,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [sponsorId, setSponsorId] = useState('');
+  const [sponsorName, setSponsorName] = useState('');
   const [isAutoFilledSponsor, setIsAutoFilledSponsor] = useState(false);
   const [popFile, setPopFile] = useState<File | null>(null);
   const [popPreview, setPopPreview] = useState<string | null>(null);
@@ -28,14 +29,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
   const [showPassword, setShowPassword] = useState(false);
   const [showSignUpPassword, setShowSignUpPassword] = useState(false);
 
-  // Auto-detect Sponsor ID from URL link (e.g. everglowcommunity.co.za/?sponsor=EG-8942)
+  // Auto-detect Sponsor ID & Sponsor Name from URL link (e.g. everglowcommunity.co.za/?sponsor=EG-7296&name=ntebogeng2016)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const urlRef = params.get('sponsor') || params.get('ref') || params.get('upline') || params.get('id');
+    const urlName = params.get('name') || params.get('sponsor_name') || params.get('sname');
     
     if (urlRef) {
       const cleanRef = urlRef.trim().toUpperCase();
       setSponsorId(cleanRef);
+      if (urlName) {
+        setSponsorName(decodeURIComponent(urlName.trim()));
+      }
       setIsAutoFilledSponsor(true);
       setTab('signup');
     }
@@ -214,6 +219,32 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
             </form>
           ) : (
             <form onSubmit={handleSignUpSubmit} className="space-y-3">
+              {/* Verified Sponsor Info Card */}
+              {sponsorId && (
+                <div className="p-3 bg-gradient-to-r from-amber-100/90 via-pink-100/80 to-amber-100/90 border border-amber-300 rounded-2xl flex items-center justify-between shadow-2xs">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-2 bg-[#D4AF37] text-slate-950 rounded-xl font-black text-xs shadow-xs shrink-0">
+                      👑
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[9px] font-extrabold uppercase tracking-wider text-[#8B6508] bg-amber-200/80 px-2 py-0.5 rounded-full border border-amber-300">
+                        Official Team Sponsor
+                      </span>
+                      <h4 className="text-xs font-extrabold text-slate-900 mt-0.5 truncate">
+                        {sponsorName ? sponsorName : `Leader ${sponsorId}`}
+                      </h4>
+                      <p className="text-[10px] text-slate-600 font-medium">
+                        Sponsor ID: <span className="font-extrabold text-[#8B6508]">{sponsorId}</span>
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-extrabold text-emerald-800 bg-emerald-100 px-2 py-1 rounded-xl border border-emerald-300 flex items-center gap-1 shadow-2xs shrink-0">
+                    <UserCheck className="w-3 h-3 text-emerald-700" />
+                    <span>Auto-Linked</span>
+                  </span>
+                </div>
+              )}
+
               {/* Mandatory Sponsor ID Link */}
               <div>
                 <div className="flex items-center justify-between mb-1">

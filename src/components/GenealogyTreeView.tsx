@@ -34,11 +34,11 @@ export const GenealogyTreeView: React.FC<GenealogyTreeViewProps> = ({
   };
 
   useEffect(() => {
-    const inviteLink = `https://everglowcommunity.co.za/?sponsor=${member.sponsor_id}`;
+    const inviteLink = `https://everglowcommunity.co.za/?sponsor=${member.sponsor_id}&name=${encodeURIComponent(member.full_name)}`;
     QRCode.toDataURL(inviteLink, { width: 220, margin: 1, color: { dark: '#0F172A', light: '#FFFFFF' } })
       .then(url => setQrCodeDataUrl(url))
       .catch(err => console.error('QR code generation error:', err));
-  }, [member.sponsor_id]);
+  }, [member.sponsor_id, member.full_name]);
 
   const level1Members = downlineTree.filter(m => m.upline_id === member.id);
   const level2Members = downlineTree.filter(m => {
@@ -66,17 +66,17 @@ export const GenealogyTreeView: React.FC<GenealogyTreeViewProps> = ({
   };
 
   const handleCopyInviteLink = () => {
-    const link = `https://everglowcommunity.co.za/?sponsor=${member.sponsor_id}`;
+    const link = `https://everglowcommunity.co.za/?sponsor=${member.sponsor_id}&name=${encodeURIComponent(member.full_name)}`;
     navigator.clipboard.writeText(link);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
   const handleShareWhatsAppInvite = () => {
-    const inviteLink = `https://everglowcommunity.co.za/?sponsor=${member.sponsor_id}`;
+    const inviteLink = `https://everglowcommunity.co.za/?sponsor=${member.sponsor_id}&name=${encodeURIComponent(member.full_name)}`;
     const message = encodeURIComponent(
-      `Hi! Join my Everglow Community team and start earning with luxury beauty & home essentials! ✨\n\n` +
-      `Register directly under my Sponsor ID (${member.sponsor_id}):\n${inviteLink}`
+      `Hi! Join ${member.full_name}'s Everglow Community team and start earning with luxury beauty & home essentials! ✨\n\n` +
+      `Register directly under ${member.full_name} (Sponsor ID: ${member.sponsor_id}):\n${inviteLink}`
     );
     window.open(`https://wa.me/?text=${message}`, '_blank');
   };
