@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Everglow Admin | Master Control Center</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#1b1c1c",
+                    "on-primary-fixed": "#201a1d",
+                    "primary": "#655c5f",
+                    "surface-container": "#f0eded",
+                    "on-secondary-fixed": "#241a00",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f6f3f2",
+                    "tertiary": "#745b00",
+                    "inverse-surface": "#303030",
+                    "surface-tint": "#655c5f",
+                    "outline": "#7e7578",
+                    "background": "#fcf9f8",
+                    "surface-bright": "#fcf9f8",
+                    "tertiary-fixed-dim": "#eac249",
+                    "on-primary-container": "#776d70",
+                    "on-tertiary-container": "#886c00",
+                    "secondary-container": "#fed65b",
+                    "secondary-fixed": "#ffe088",
+                    "surface-container-high": "#eae7e7",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#fff1f5",
+                    "inverse-on-surface": "#f3f0f0",
+                    "on-surface": "#1b1c1c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#4d4448",
+                    "inverse-primary": "#d0c3c7",
+                    "on-secondary-fixed-variant": "#574500",
+                    "surface-container-highest": "#e4e2e1",
+                    "tertiary-container": "#fff3dc",
+                    "outline-variant": "#cfc4c7",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#eddfe3",
+                    "surface-dim": "#dcd9d9",
+                    "on-tertiary-fixed-variant": "#584400",
+                    "primary-fixed-dim": "#d0c3c7",
+                    "tertiary-fixed": "#ffe08b",
+                    "on-tertiary-fixed": "#241a00",
+                    "surface": "#fcf9f8",
+                    "surface-variant": "#e4e2e1",
+                    "on-surface-variant": "#4c4548",
+                    "secondary": "#735c00",
+                    "on-secondary-container": "#745c00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "sm": "16px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "lg": "32px",
+                    "md": "24px",
+                    "container-margin": "20px",
+                    "xl": "48px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "display-lg": ["Playfair Display"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Playfair Display"],
+                    "title-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .gold-glow {
+            box-shadow: 0 10px 30px rgba(115, 92, 0, 0.08);
+        }
+        .metallic-gold {
+            background: linear-gradient(135deg, #e9c349 0%, #735c00 100%);
+        }
+        .gold-border-top {
+            border-top: 1px solid #ffe088;
+        }
+        .luxury-card {
+            background-color: #fff1f5; /* primary-container */
+            transition: all 0.3s ease;
+        }
+        .luxury-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(115, 92, 0, 0.12);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-32">
+<!-- Top Navigation Bar -->
+<header class="docked full-width top-0 bg-background sticky z-50">
+<div class="flex justify-between items-center w-full px-container-margin py-xs max-w-7xl mx-auto">
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-secondary italic">Everglow</h1>
+<!-- Demo Toggle -->
+<div class="flex items-center gap-xs bg-surface-container px-sm py-xs rounded-full border border-outline-variant">
+<span class="font-label-caps text-label-caps text-on-surface-variant">System Mode: <span class="text-secondary" id="demo-status">DEMO DATA ON</span></span>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-secondary transition-colors focus:outline-none" id="toggle-switch" onclick="toggleDemo()">
+<span class="translate-x-6 inline-block h-4 w-4 transform rounded-full bg-white transition-transform" id="toggle-knob"></span>
+</button>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary hover:opacity-80 transition-opacity cursor-pointer">notifications</span>
+<div class="w-10 h-10 rounded-full border-2 border-secondary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a sophisticated South African woman executive, wearing elegant business attire with subtle gold jewelry, high-end studio lighting, soft cream background, editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWVygAtgfMkYKAd_S4T5hzxXJZEPX7V8GWrtBY9EThZGtiaE8ZmLohAc4iGPy_qPwZFkKGTopyhIDhuiXXUEqsBPFe_LPYprkrkaNdR8zCcxqZufCef_k60BuQLhEJs1-7rblIbwZXQpiziGcVnMYhsOupCURnzpENHhWuUng4pIxCKLPj3SFVFaXO_sSCxQhpWSgZoUCAl2_A4-Z3xWKz6280-AkaPJdBhQAu-Uto6vnAavRR2cHW0Q"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-container-margin pt-lg">
+<!-- Dashboard Header & Search -->
+<div class="flex flex-col md:flex-row justify-between items-end gap-md mb-xl">
+<div>
+<p class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-base">Master Control Center</p>
+<h2 class="font-headline-md text-headline-md">Executive Oversight</h2>
+</div>
+<!-- Network Inspector Search -->
+<div class="w-full md:w-96 relative group">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline group-focus-within:text-secondary transition-colors">account_tree</span>
+<input class="w-full pl-xl pr-sm py-sm rounded-lg border border-outline-variant bg-white focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all font-body-sm" placeholder="Search Network Tree (ID, Name, Email)..." type="text"/>
+</div>
+</div>
+<!-- Quick Stats Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-xl">
+<!-- Total Sales -->
+<div class="luxury-card p-md rounded-xl gold-border-top gold-glow">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-secondary bg-secondary/10 p-xs rounded-lg">payments</span>
+<span class="font-label-caps text-[10px] text-emerald-600 bg-emerald-50 px-xs py-[2px] rounded-full">+12.4%</span>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Total Sales (ZAR)</p>
+<h3 class="font-display-lg-mobile text-display-lg-mobile mt-base">R1.42M</h3>
+</div>
+<!-- Total Commissions -->
+<div class="luxury-card p-md rounded-xl gold-border-top gold-glow">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-secondary bg-secondary/10 p-xs rounded-lg">volunteer_activism</span>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Commissions Paid</p>
+<h3 class="font-display-lg-mobile text-display-lg-mobile mt-base">R412,850</h3>
+</div>
+<!-- Pending Payouts -->
+<div class="luxury-card p-md rounded-xl gold-border-top gold-glow">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-secondary bg-secondary/10 p-xs rounded-lg">hourglass_empty</span>
+<div class="flex items-center gap-xs">
+<span class="h-2 w-2 rounded-full bg-error animate-pulse"></span>
+<span class="font-label-caps text-[10px] text-error">CRITICAL</span>
+</div>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Pending Payouts</p>
+<h3 class="font-display-lg-mobile text-display-lg-mobile mt-base">R86,210</h3>
+</div>
+<!-- New Registrations -->
+<div class="luxury-card p-md rounded-xl gold-border-top gold-glow">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-secondary bg-secondary/10 p-xs rounded-lg">person_add</span>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">New Registrations</p>
+<h3 class="font-display-lg-mobile text-display-lg-mobile mt-base">142 <span class="text-body-sm font-normal text-on-surface-variant">this month</span></h3>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+<!-- Left Column: Pending Queues -->
+<div class="lg:col-span-2 space-y-md">
+<h4 class="font-title-lg text-title-lg flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">pending_actions</span>
+                    Active Operational Queues
+                </h4>
+<!-- Registration Approvals -->
+<div class="bg-white p-sm rounded-xl border border-outline-variant hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="relative">
+<span class="material-symbols-outlined text-secondary text-3xl">assignment_ind</span>
+<span class="absolute -top-1 -right-1 flex h-4 w-4">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span>
+<span class="relative inline-flex rounded-full h-4 w-4 bg-error text-[10px] items-center justify-center text-white font-bold">12</span>
+</span>
+</div>
+<div>
+<p class="font-title-lg text-body-md font-bold group-hover:text-secondary transition-colors">Registration Approvals</p>
+<p class="text-body-sm text-on-surface-variant">Verify R100 POP receipts for new members</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Order Fulfillment -->
+<div class="bg-white p-sm rounded-xl border border-outline-variant hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="relative">
+<span class="material-symbols-outlined text-secondary text-3xl">package_2</span>
+<span class="absolute -top-1 -right-1 inline-flex rounded-full h-4 w-4 bg-secondary text-[10px] items-center justify-center text-white font-bold">48</span>
+</div>
+<div>
+<p class="font-title-lg text-body-md font-bold group-hover:text-secondary transition-colors">Order Fulfillment</p>
+<p class="text-body-sm text-on-surface-variant">Payment verification &amp; courier dispatching</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Withdrawal Requests -->
+<div class="bg-white p-sm rounded-xl border border-outline-variant hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="relative">
+<span class="material-symbols-outlined text-secondary text-3xl">account_balance_wallet</span>
+<span class="absolute -top-1 -right-1 inline-flex rounded-full h-4 w-4 bg-error text-[10px] items-center justify-center text-white font-bold">9</span>
+</div>
+<div>
+<p class="font-title-lg text-body-md font-bold group-hover:text-secondary transition-colors">Withdrawal Requests</p>
+<p class="text-body-sm text-on-surface-variant">Authorize commission payouts to bank accounts</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Quick Actions & Management -->
+<div class="space-y-lg">
+<div>
+<h4 class="font-title-lg text-title-lg mb-md">Master Controls</h4>
+<div class="flex flex-col gap-sm">
+<!-- Ledger Button -->
+<button class="metallic-gold w-full py-md rounded-xl text-white font-bold flex items-center justify-center gap-sm shadow-lg hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">analytics</span>
+                            Master Financial Ledger
+                        </button>
+<!-- Product Builder -->
+<button class="w-full py-md rounded-xl border-2 border-secondary bg-primary-container text-secondary font-bold flex items-center justify-center gap-sm hover:bg-secondary-fixed transition-colors active:scale-95">
+<span class="material-symbols-outlined">inventory_2</span>
+                            Product &amp; Combo Builder
+                        </button>
+</div>
+</div>
+<!-- Recent Activity / System Logs -->
+<div class="bg-surface-container p-md rounded-xl">
+<h5 class="font-label-caps text-label-caps text-secondary mb-sm uppercase">Recent Admin Activity</h5>
+<div class="space-y-sm">
+<div class="flex gap-sm items-start">
+<div class="w-2 h-2 rounded-full bg-secondary mt-2"></div>
+<div>
+<p class="text-body-sm font-bold">Sarah M. approved Member #892</p>
+<p class="text-[10px] text-on-surface-variant uppercase">14 mins ago</p>
+</div>
+</div>
+<div class="flex gap-sm items-start border-t border-outline-variant pt-sm">
+<div class="w-2 h-2 rounded-full bg-secondary mt-2"></div>
+<div>
+<p class="text-body-sm font-bold">Ledger report exported for Q3</p>
+<p class="text-[10px] text-on-surface-variant uppercase">1 hour ago</p>
+</div>
+</div>
+<div class="flex gap-sm items-start border-t border-outline-variant pt-sm">
+<div class="w-2 h-2 rounded-full bg-secondary mt-2"></div>
+<div>
+<p class="text-body-sm font-bold">Price update: Luminous Serum Gold</p>
+<p class="text-[10px] text-on-surface-variant uppercase">3 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Admin Shell) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter pb-6 pt-2 bg-surface shadow-sm border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-sm py-xs scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container transition-colors px-sm py-xs" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-caps text-label-caps">Store</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container transition-colors px-sm py-xs" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-caps text-label-caps">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container transition-colors px-sm py-xs" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-caps text-label-caps">Team</span>
+</a>
+</nav>
+<script>
+        function toggleDemo() {
+            const knob = document.getElementById('toggle-knob');
+            const switchBg = document.getElementById('toggle-switch');
+            const statusText = document.getElementById('demo-status');
+            const isDemo = statusText.innerText.includes('ON');
+
+            if (isDemo) {
+                knob.classList.remove('translate-x-6');
+                knob.classList.add('translate-x-1');
+                switchBg.classList.replace('bg-secondary', 'bg-outline');
+                statusText.innerText = 'DEMO DATA OFF';
+                statusText.classList.replace('text-secondary', 'text-on-surface-variant');
+            } else {
+                knob.classList.remove('translate-x-1');
+                knob.classList.add('translate-x-6');
+                switchBg.classList.replace('bg-outline', 'bg-secondary');
+                statusText.innerText = 'DEMO DATA ON';
+                statusText.classList.replace('text-on-surface-variant', 'text-secondary');
+            }
+        }
+
+        // Add micro-interaction to cards
+        document.querySelectorAll('.luxury-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const icon = card.querySelector('.material-symbols-outlined');
+                if(icon) icon.style.transform = 'scale(1.1) rotate(5deg)';
+                icon.style.transition = 'transform 0.3s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                const icon = card.querySelector('.material-symbols-outlined');
+                if(icon) icon.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    </script>
+</body></html>

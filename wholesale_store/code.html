@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Everglow Wholesale Store</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#1b1c1c",
+                    "on-primary-fixed": "#201a1d",
+                    "primary": "#655c5f",
+                    "surface-container": "#f0eded",
+                    "on-secondary-fixed": "#241a00",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f6f3f2",
+                    "tertiary": "#745b00",
+                    "inverse-surface": "#303030",
+                    "surface-tint": "#655c5f",
+                    "outline": "#7e7578",
+                    "background": "#fcf9f8",
+                    "surface-bright": "#fcf9f8",
+                    "tertiary-fixed-dim": "#eac249",
+                    "on-primary-container": "#776d70",
+                    "on-tertiary-container": "#886c00",
+                    "secondary-container": "#fed65b",
+                    "secondary-fixed": "#ffe088",
+                    "surface-container-high": "#eae7e7",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#fff1f5",
+                    "inverse-on-surface": "#f3f0f0",
+                    "on-surface": "#1b1c1c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#4d4448",
+                    "inverse-primary": "#d0c3c7",
+                    "on-secondary-fixed-variant": "#574500",
+                    "surface-container-highest": "#e4e2e1",
+                    "tertiary-container": "#fff3dc",
+                    "outline-variant": "#cfc4c7",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#eddfe3",
+                    "surface-dim": "#dcd9d9",
+                    "on-tertiary-fixed-variant": "#584400",
+                    "primary-fixed-dim": "#d0c3c7",
+                    "tertiary-fixed": "#ffe08b",
+                    "on-tertiary-fixed": "#241a00",
+                    "surface": "#fcf9f8",
+                    "surface-variant": "#e4e2e1",
+                    "on-surface-variant": "#4c4548",
+                    "secondary": "#735c00",
+                    "on-secondary-container": "#745c00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "sm": "16px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "lg": "32px",
+                    "md": "24px",
+                    "container-margin": "20px",
+                    "xl": "48px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "display-lg": ["Playfair Display"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Playfair Display"],
+                    "title-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8952E 100%);
+        }
+        .rose-gold-gradient {
+            background: linear-gradient(90deg, #E5B7A6 0%, #D4AF37 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.08);
+        }
+        .active-tab {
+            border-bottom: 2px solid #735c00;
+            color: #735c00;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fcf9f8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cfc4c7;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-on-background fixed top-0 left-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-container-margin py-xs max-w-7xl mx-auto">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a successful South African beauty entrepreneur, smiling warmly. The lighting is soft and flattering, with a blurred high-end skincare boutique in the background. The aesthetic is clean, luxurious, and empowering, reflecting the Everglow brand identity with soft blush and gold tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLf4ZS4pHP7e6aWzOmbeM-QCs9itNyjxYkt3009RermiIVYHmbF2z5ABy3g-Fv_V4rgNhmJ0FF4Ie-KfuzCeWjxvSIIBQSP4Hq4pWts2d5KADuMlYR__o6F5JhBa9VQq7B8ShcPXF7lUwwAWF26XnkN6QNSJhUH-YvxCI4bDRrr8Werd_bOqLqg8gNvpD9zvu5iXj4CzpoxmMSFoDc3jBqN4LZFSmp1dXUYeiDDmIOkvkc_tWyrNIECg"/>
+</div>
+</div>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-secondary dark:text-secondary-fixed italic">Everglow</h1>
+<button class="text-secondary dark:text-secondary-fixed hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-20 px-container-margin max-w-7xl mx-auto">
+<!-- Promo Banner -->
+<section class="mt-md mb-lg">
+<div class="relative overflow-hidden rounded-xl rose-gold-gradient p-md text-on-secondary flex flex-col md:flex-row items-center justify-between gap-md shadow-lg">
+<div class="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
+<span class="font-label-caps text-label-caps uppercase bg-white/20 px-xs py-1 rounded mb-xs">Active Promo</span>
+<h2 class="font-headline-md text-headline-md text-white">Buy 2 Exfoliating Gel 10-Packs</h2>
+<p class="font-body-md text-body-md text-white/90">Get 1 Serum Glow Free!</p>
+</div>
+<div class="relative z-10">
+<button class="bg-white text-secondary font-label-caps text-label-caps px-lg py-sm rounded-full shadow-sm hover:bg-secondary-container transition-colors">CLAIM OFFER</button>
+</div>
+<!-- Abstract light effect -->
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+</section>
+<!-- Filter Tabs -->
+<nav class="flex gap-lg border-b border-outline-variant mb-lg overflow-x-auto no-scrollbar">
+<button class="font-label-caps text-label-caps pb-sm active-tab whitespace-nowrap transition-all" id="tab-all" onclick="filterProducts('all')">All</button>
+<button class="font-label-caps text-label-caps pb-sm text-on-surface-variant hover:text-secondary whitespace-nowrap transition-all" id="tab-single" onclick="filterProducts('single')">Single Packs</button>
+<button class="font-label-caps text-label-caps pb-sm text-on-surface-variant hover:text-secondary whitespace-nowrap transition-all" id="tab-combo" onclick="filterProducts('combo')">Combo Packages</button>
+</nav>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md" id="product-grid">
+<!-- Product 1 -->
+<div class="product-card bg-primary-container rounded-xl overflow-hidden border border-primary-container transition-all hover:scale-[1.02] card-shadow" data-category="single">
+<div class="h-64 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A sleek packaging display of ten Everglow Exfoliating Gel tubes, 50g each. The tubes are finished in a soft blush matte texture with elegant gold lettering. They are arranged artistically on a white marble surface under warm, natural sunlight, creating a high-end, editorial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1WM3m1jwfz8R4Y7E7F--u5AI1MwXsfHsAf8As5-DW7oVAG-7RC2Ae5hvvLeYvMRMJqks_zZ6WAyls9DFYguQFNh35aWSUsoRuW6jPo808sXJQw-hIxkvguYdQIS2TzxoOD68I8NmpP83jyc5Fbe_L1fAzEnZU2kJKzxtT5d5zHNIpwEqE32yz6BYRWEOs6iRjMsJEDkT5BAGgncNsPSt2P3WY0h47d5vyGexZQzgsrkFCxfzTS7jahw"/>
+<div class="absolute top-sm right-sm">
+<span class="bg-secondary-container text-on-secondary-container font-label-caps text-[10px] px-xs py-1 rounded-full">MOST POPULAR</span>
+</div>
+</div>
+<div class="p-md flex flex-col gap-xs">
+<div class="flex justify-between items-start">
+<h3 class="font-title-lg text-title-lg text-on-surface">Exfoliating Gel 50g (10 Pack)</h3>
+<p class="font-headline-md text-headline-md text-secondary">R1,500</p>
+</div>
+<div class="flex items-center gap-xs mt-xs">
+<span class="material-symbols-outlined text-[18px] text-tertiary">trending_up</span>
+<p class="font-label-caps text-label-caps text-tertiary">Retail Profit: R1,000</p>
+</div>
+<div class="group relative inline-block mt-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 cursor-help">
+                            Profit Calculator <span class="material-symbols-outlined text-[14px]">info</span>
+</span>
+<div class="invisible group-hover:visible absolute bottom-full left-0 mb-2 w-64 p-sm bg-on-background text-white rounded-lg text-[12px] z-20 shadow-xl transition-opacity opacity-0 group-hover:opacity-100">
+                            Selling 10 units at R250 each = R2,500.<br/>Your Cost: R1,500.<br/>Total Profit: R1,000.
+                        </div>
+</div>
+<button class="gold-gradient text-on-secondary w-full py-sm rounded-lg font-label-caps text-label-caps mt-md active:scale-95 transition-transform">ADD TO CART</button>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="product-card bg-primary-container rounded-xl overflow-hidden border border-primary-container transition-all hover:scale-[1.02] card-shadow border-t-2 border-t-secondary-container" data-category="single">
+<div class="h-64 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A professional studio shot of ten Serum Glow 100ml bottles in a group. The bottles are glass with rose gold droppers, reflecting a luminous, clean glow. The background is a soft beige with subtle golden light flares, evoking a sense of prestige and premium quality skincare." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB8mPl_3ooLqehYjyzThZQvoLC2IubsFA3FllcU-wDas7PLNTxllnwOAmqTwuU6AY3RP2xlUjGUe9twiW0c86-IMVHaJwVXnZg8xXVAou7_tMN33Or4Ice9kmUFdud1iUxEudy2kmJAxPZvkJRx_Nn96zjtpmiO1GIdYt-oWlRhajJpoJJxMHtf7cRZKIjh3pxAaS3J-9BlozP-QAjMyDZuKlPp627_BEEZi9LdqK32ArUtSp0-2ZHww"/>
+</div>
+<div class="p-md flex flex-col gap-xs">
+<div class="flex justify-between items-start">
+<h3 class="font-title-lg text-title-lg text-on-surface">Serum Glow 100ml (10 Pack)</h3>
+<p class="font-headline-md text-headline-md text-secondary">R900</p>
+</div>
+<div class="flex items-center gap-xs mt-xs">
+<span class="material-symbols-outlined text-[18px] text-tertiary">trending_up</span>
+<p class="font-label-caps text-label-caps text-tertiary">Retail Profit: R900</p>
+</div>
+<div class="group relative inline-block mt-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 cursor-help">
+                            Profit Calculator <span class="material-symbols-outlined text-[14px]">info</span>
+</span>
+<div class="invisible group-hover:visible absolute bottom-full left-0 mb-2 w-64 p-sm bg-on-background text-white rounded-lg text-[12px] z-20 shadow-xl transition-opacity opacity-0 group-hover:opacity-100">
+                            Selling 10 units at R180 each = R1,800.<br/>Your Cost: R900.<br/>Total Profit: R900.
+                        </div>
+</div>
+<button class="gold-gradient text-on-secondary w-full py-sm rounded-lg font-label-caps text-label-caps mt-md active:scale-95 transition-transform">ADD TO CART</button>
+</div>
+</div>
+<!-- Product 3 (Combo) -->
+<div class="product-card bg-primary-container rounded-xl overflow-hidden border border-primary-container transition-all hover:scale-[1.02] card-shadow" data-category="combo">
+<div class="h-64 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="An artistic arrangement of the 'Combo A' package, featuring four pink exfoliating gel tubes and six amber serum glow bottles. The products are displayed on a tiered glass shelf with soft studio lighting. The color palette is cohesive with the Everglow brand, emphasizing luxury, balance, and entrepreneurial success." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsAXa7UtptRRAQJl3DySn_TkXXIq2ucquQLFflrjfckfUI0LAh0tL7z2B_yhRzGhAhdMU5DAbm3hp18ZusE5GO8b4b8zHH90R6CMySDC6aQV7u7mXWpSWaxd8W4HZxBfc0B_67ngCrPMseqI7ic9Jz7fy-TQ0gvDN86OVH1AEdLR1sIm8ADEiYlKqvtURugzcLTEV7BYujnylPBFDyfZ35OMMaxl8tvT-sZjd0nftJHsw6O73O9jz8Aw"/>
+<div class="absolute top-sm left-sm">
+<span class="bg-tertiary text-on-tertiary font-label-caps text-[10px] px-xs py-1 rounded-full">BEST VALUE</span>
+</div>
+</div>
+<div class="p-md flex flex-col gap-xs">
+<div class="flex justify-between items-start">
+<h3 class="font-title-lg text-title-lg text-on-surface">Combo A (4 Gel + 6 Serum)</h3>
+<p class="font-headline-md text-headline-md text-secondary">R1,140</p>
+</div>
+<div class="flex items-center gap-xs mt-xs">
+<span class="material-symbols-outlined text-[18px] text-tertiary">trending_up</span>
+<p class="font-label-caps text-label-caps text-tertiary">Retail Profit: R940</p>
+</div>
+<div class="group relative inline-block mt-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 cursor-help">
+                            Profit Calculator <span class="material-symbols-outlined text-[14px]">info</span>
+</span>
+<div class="invisible group-hover:visible absolute bottom-full left-0 mb-2 w-64 p-sm bg-on-background text-white rounded-lg text-[12px] z-20 shadow-xl transition-opacity opacity-0 group-hover:opacity-100">
+                            Retail Value: R2,080.<br/>Your Cost: R1,140.<br/>Total Profit: R940.
+                        </div>
+</div>
+<button class="gold-gradient text-on-secondary w-full py-sm rounded-lg font-label-caps text-label-caps mt-md active:scale-95 transition-transform">ADD TO CART</button>
+</div>
+</div>
+</div>
+<!-- Empty state placeholder (Hidden by default) -->
+<div class="hidden flex-col items-center justify-center py-xl text-on-surface-variant" id="empty-state">
+<span class="material-symbols-outlined text-6xl mb-sm">inventory_2</span>
+<p class="font-title-lg text-title-lg">No products found in this category.</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter pb-safe bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-outline shadow-sm h-20">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-sm py-xs hover:bg-primary-container dark:hover:bg-on-primary-fixed-variant transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-sm py-xs scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-caps text-label-caps">Store</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-sm py-xs hover:bg-primary-container dark:hover:bg-on-primary-fixed-variant transition-colors">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-caps text-label-caps">Orders</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-sm py-xs hover:bg-primary-container dark:hover:bg-on-primary-fixed-variant transition-colors">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-caps text-label-caps">Team</span>
+</button>
+</nav>
+<script>
+        function filterProducts(category) {
+            const cards = document.querySelectorAll('.product-card');
+            const tabs = ['all', 'single', 'combo'];
+            let visibleCount = 0;
+
+            // Update tab styles
+            tabs.forEach(tab => {
+                const element = document.getElementById(`tab-${tab}`);
+                if (tab === category) {
+                    element.classList.add('active-tab');
+                    element.classList.remove('text-on-surface-variant');
+                } else {
+                    element.classList.remove('active-tab');
+                    element.classList.add('text-on-surface-variant');
+                }
+            });
+
+            // Filter logic
+            cards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                if (category === 'all' || cardCategory === category) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Handle empty state
+            const emptyState = document.getElementById('empty-state');
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+            } else {
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+            }
+        }
+
+        // Simple cart counter micro-interaction
+        const cartButtons = document.querySelectorAll('.gold-gradient');
+        cartButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.textContent = 'ADDED!';
+                btn.classList.replace('gold-gradient', 'bg-tertiary');
+                setTimeout(() => {
+                    btn.textContent = 'ADD TO CART';
+                    btn.classList.replace('bg-tertiary', 'gold-gradient');
+                }, 1500);
+            });
+        });
+    </script>
+</body></html>

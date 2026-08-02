@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Everglow Member Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#1b1c1c",
+                    "on-primary-fixed": "#201a1d",
+                    "primary": "#655c5f",
+                    "surface-container": "#f0eded",
+                    "on-secondary-fixed": "#241a00",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f6f3f2",
+                    "tertiary": "#745b00",
+                    "inverse-surface": "#303030",
+                    "surface-tint": "#655c5f",
+                    "outline": "#7e7578",
+                    "background": "#fcf9f8",
+                    "surface-bright": "#fcf9f8",
+                    "tertiary-fixed-dim": "#eac249",
+                    "on-primary-container": "#776d70",
+                    "on-tertiary-container": "#886c00",
+                    "secondary-container": "#fed65b",
+                    "secondary-fixed": "#ffe088",
+                    "surface-container-high": "#eae7e7",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#fff1f5",
+                    "inverse-on-surface": "#f3f0f0",
+                    "on-surface": "#1b1c1c",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#4d4448",
+                    "inverse-primary": "#d0c3c7",
+                    "on-secondary-fixed-variant": "#574500",
+                    "surface-container-highest": "#e4e2e1",
+                    "tertiary-container": "#fff3dc",
+                    "outline-variant": "#cfc4c7",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#eddfe3",
+                    "surface-dim": "#dcd9d9",
+                    "on-tertiary-fixed-variant": "#584400",
+                    "primary-fixed-dim": "#d0c3c7",
+                    "tertiary-fixed": "#ffe08b",
+                    "on-tertiary-fixed": "#241a00",
+                    "surface": "#fcf9f8",
+                    "surface-variant": "#e4e2e1",
+                    "on-surface-variant": "#4c4548",
+                    "secondary": "#735c00",
+                    "on-secondary-container": "#745c00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "sm": "16px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "lg": "32px",
+                    "md": "24px",
+                    "container-margin": "20px",
+                    "xl": "48px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "display-lg": ["Playfair Display"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Playfair Display"],
+                    "title-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                    "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                    "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                    "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                    "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-gold {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        .metallic-gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8952E 100%);
+        }
+        .rose-gold-gradient {
+            background: linear-gradient(90deg, #E0B0FF 0%, #D4AF37 100%);
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-fixed/30">
+<!-- Top App Bar -->
+<header class="bg-background fixed top-0 left-0 w-full z-50 flex justify-between items-center w-full px-container-margin py-xs max-w-7xl mx-auto">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Close-up professional portrait of a South African female entrepreneur with a warm smile, wearing sophisticated business attire in a soft blush tone. The lighting is editorial and soft, set against a blurred high-end minimalist office background with gold accents. The visual style is premium and empowering, reflecting a luxury beauty brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2QJnQVD2AlLLPMp3auHIplgwMOz8bZj529mBkLEv2ZFccG0LBX-gq62PoAkCnIjJEySqwbVV-xz12k2xQjVeEI2fQ74v0y9mPz5XWKfK6ZVzffSUhStYYGGZqakATSNZo0ppxwrV_Eq0giIO1kQ6Yc_kXkGhfYFE3j2WISbJzTcrPhnQvZpNCZn2okSsP782Cr7BkDzFOl32J55qeir8cw1OS1pbYO_dQyoL3vtHju9lkquoP6Ja3gg"/>
+</div>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-secondary italic">Everglow</h1>
+</div>
+<button class="relative p-2 text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full border border-background"></span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-container-margin max-w-7xl mx-auto space-y-md">
+<!-- Welcome Section -->
+<section class="animate-fade-in">
+<p class="font-label-caps text-label-caps text-secondary">EXECUTIVE DASHBOARD</p>
+<h2 class="font-headline-md text-headline-md text-on-surface">Welcome, Sarah</h2>
+</section>
+<!-- Executive E-Wallet -->
+<section class="relative overflow-hidden rounded-xl bg-primary-container p-lg border-t border-secondary/20 shadow-sm">
+<div class="relative z-10 flex flex-col md:flex-row justify-between gap-md">
+<div class="space-y-xs">
+<p class="font-label-caps text-label-caps text-on-primary-container">AVAILABLE BALANCE</p>
+<h3 class="font-display-lg text-display-lg-mobile text-on-surface">R350.00</h3>
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-sm">account_balance_wallet</span>
+<span class="font-label-caps text-label-caps uppercase">Ready for Payout</span>
+</div>
+</div>
+<div class="md:text-right space-y-xs">
+<p class="font-label-caps text-label-caps text-on-primary-container">LIFETIME EARNINGS</p>
+<p class="font-title-lg text-title-lg text-on-surface-variant">R1,200.00</p>
+<button class="mt-sm px-md py-xs metallic-gold-gradient text-on-secondary-fixed font-label-caps text-label-caps rounded-full glow-gold hover:opacity-90 transition-all active:scale-95">
+                        WITHDRAW FUNDS
+                    </button>
+</div>
+</div>
+<!-- Atmospheric background element -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-secondary/5 rounded-full blur-3xl"></div>
+</section>
+<!-- Progress Trackers: Bento Style -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Withdrawal Progress -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-primary-container shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-center mb-sm">
+<p class="font-label-caps text-label-caps text-secondary">WITHDRAWAL UNLOCK</p>
+<span class="font-label-caps text-label-caps text-on-surface-variant">R350 / R500</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden mb-sm">
+<div class="h-full rose-gold-gradient rounded-full shadow-[0_0_8px_rgba(224,176,255,0.5)]" style="width: 70%"></div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">
+                    Earn R150 more to unlock bank withdrawal!
+                </p>
+</div>
+<!-- Recruitment Tracker -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-primary-container shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-center mb-sm">
+<p class="font-label-caps text-label-caps text-secondary">15-RECRUIT MILESTONE</p>
+<span class="font-label-caps text-label-caps text-on-surface-variant">12 / 15 Recruits</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden mb-sm">
+<div class="h-full bg-secondary rounded-full" style="width: 80%"></div>
+</div>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">stars</span>
+<p class="font-body-sm text-body-sm font-semibold text-secondary">R1,000 Bonus pending</p>
+</div>
+</div>
+</div>
+<!-- Quick Stats Grid -->
+<section class="space-y-sm">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant">COMMISSION BREAKDOWN</h4>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-sm">
+<!-- Stat 1 -->
+<div class="bg-primary-container/30 border border-outline-variant p-sm rounded-lg group hover:border-secondary transition-colors">
+<p class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-secondary transition-colors">DIRECT 1 COMMISSIONS</p>
+<p class="font-title-lg text-title-lg mt-xs">R450.00</p>
+</div>
+<!-- Stat 2 -->
+<div class="bg-primary-container/30 border border-outline-variant p-sm rounded-lg group hover:border-secondary transition-colors">
+<p class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-secondary transition-colors">DIRECT 2 COMMISSIONS</p>
+<p class="font-title-lg text-title-lg mt-xs">R210.00</p>
+</div>
+<!-- Stat 3 -->
+<div class="bg-primary-container/30 border border-outline-variant p-sm rounded-lg group hover:border-secondary transition-colors">
+<p class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-secondary transition-colors">RETAIL PROFIT</p>
+<p class="font-title-lg text-title-lg mt-xs">R540.00</p>
+</div>
+</div>
+</section>
+<!-- Featured Achievement (Visual Placeholder) -->
+<section class="relative rounded-xl h-48 overflow-hidden group cursor-pointer shadow-lg">
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all duration-500 z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A luxury promotional banner image featuring high-end beauty products like gold-capped perfumes and serums arranged artistically on a blush silk fabric. Soft morning light creates elegant shadows and highlights. The aesthetic is clean, professional, and 'expensive', typical of a prestige lifestyle brand. High-resolution editorial photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEnqvsttXAH-BUE8V6FjYyghrQULhgTQZtlwTo4p-Cn40AXRQqpFEMlryHxrn_-kmdz4jwm-jeiMlWsIHdKLOY1GCfVugq9A8mH-9rGIV0rTc4x9Y8-sK4K8p7wfgkQvuoXU3mZBPmMwybOX-NwzULzZZN7BinU1h-OPjsTiKILe6UXxLY28CZQWldKmJUjYzDhPN_NkIwD1QDBpv60PpP7VNT6VwZdvUfN9kR8j3snl2UwdYdl8opPg"/>
+<div class="absolute inset-0 z-20 p-md flex flex-col justify-end">
+<span class="inline-block px-sm py-1 bg-secondary text-on-secondary-fixed text-label-caps font-label-caps rounded-full w-fit mb-xs">NEW IN STORE</span>
+<h4 class="font-headline-md text-headline-md text-white">Luminous Radiance Set</h4>
+<p class="text-white/80 font-body-sm text-body-sm">Boost your retail profit today.</p>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter pb-6 pt-4 bg-surface shadow-sm border-t border-outline-variant rounded-t-xl">
+<!-- Dashboard (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-sm py-xs active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<!-- Store -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container transition-colors px-sm py-xs active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-caps text-label-caps">Store</span>
+</a>
+<!-- Orders -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container transition-colors px-sm py-xs active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-caps text-label-caps">Orders</span>
+</a>
+<!-- Team -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container transition-colors px-sm py-xs active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-caps text-label-caps">Team</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: Active state visual feedback for buttons
+        document.querySelectorAll('button, a').forEach(elem => {
+            elem.addEventListener('touchstart', () => {
+                elem.classList.add('opacity-70');
+            });
+            elem.addEventListener('touchend', () => {
+                elem.classList.remove('opacity-70');
+            });
+        });
+
+        // Simple scroll shadow for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-md');
+                header.classList.add('bg-white/95');
+                header.classList.add('backdrop-blur-md');
+            } else {
+                header.classList.remove('shadow-md');
+                header.classList.remove('bg-white/95');
+                header.classList.remove('backdrop-blur-md');
+            }
+        });
+    </script>
+</body></html>
