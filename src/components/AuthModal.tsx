@@ -49,6 +49,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
     }
   };
 
+  const formatAuthError = (err: string | null): string => {
+    if (!err) return 'An error occurred. Please try again.';
+    if (err.includes('fetch') || err.includes('Headers') || err.includes('Invalid value')) {
+      return 'Unable to reach authentication server. Please check your internet connection or try again in a moment.';
+    }
+    return err;
+  };
+
   const handleSignInSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
@@ -63,7 +71,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
     setIsSubmitting(false);
 
     if (error || !profile) {
-      setErrorMsg(error || 'Failed to sign in. Please verify your credentials.');
+      setErrorMsg(formatAuthError(error || 'Failed to sign in. Please verify your credentials.'));
       return;
     }
 
@@ -86,7 +94,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
     setIsSubmitting(false);
 
     if (error || !profile) {
-      setErrorMsg(error || 'Registration failed. Please try again.');
+      setErrorMsg(formatAuthError(error || 'Registration failed. Please try again.'));
       return;
     }
 
