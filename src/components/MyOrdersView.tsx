@@ -52,7 +52,7 @@ export const MyOrdersView: React.FC<MyOrdersViewProps> = ({
       </div>
 
       {/* Order Status Filter Bar (Sticky on Scroll) */}
-      <div className="sticky top-11 lg:top-0 z-20 -mx-4 px-4 py-2 bg-[#FFF1F5]/95 backdrop-blur-md transition-all">
+      <div className="sticky top-11 lg:top-0 z-20 w-full py-2 bg-[#FFF1F5]/95 backdrop-blur-md transition-all">
         <div className="flex gap-1.5 p-1 bg-white rounded-xl border border-slate-200 overflow-x-auto scrollbar-none shadow-2xs">
         <button
           type="button"

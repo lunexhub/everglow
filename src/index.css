@@ -9,12 +9,14 @@
   --gold-pill: #FCE36D;
 }
 
-body {
+html, body {
   background-color: #FFF1F5 !important;
   color: #1A1A1A;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   margin: 0;
   padding: 0;
+  max-width: 100vw;
+  overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -160,6 +162,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+@media (min-width: 1024px) {
+  .bottom-nav {
+    display: none !important;
+  }
 }
 
 .nav-pill-active {
