@@ -14,7 +14,8 @@ import {
   togglePromotionInSupabase,
   updateProductStockInSupabase,
   deletePromotionFromSupabase,
-  approveOrderInSupabase
+  approveOrderInSupabase,
+  deleteOrderFromSupabase
 } from '../lib/supabaseService';
 
 interface AdminDashboardProps {
@@ -544,6 +545,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         }));
         approveOrderInSupabase(orderId);
         notify(`Order ${order?.order_number || ''} approved! Commissions credited & saved in SQL.`);
+      }
+    );
+  };
+
+  const handleDeleteOrder = (orderId: string, orderNumber?: string) => {
+    const order = ordersList.find(o => o.id === orderId);
+    requestConfirmation(
+      "Delete Order Record",
+      `Are you sure you want to PERMANENTLY DELETE Order ${order?.order_number || orderNumber || orderId}? This record will be removed from local state & Supabase database.`,
+      "Delete Order",
+      "danger",
+      async () => {
+        setOrdersList(prev => prev.filter(o => o.id !== orderId));
+        await deleteOrderFromSupabase(orderId, orderNumber);
+        notify(`Order ${order?.order_number || ''} deleted permanently.`);
       }
     );
   };
@@ -1153,6 +1169,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                           <span>🟢 Mark Delivered</span>
                         </button>
                       )}
+
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteOrder(order.id, order.order_number)}
+                        className="py-2 px-3 bg-rose-100 hover:bg-rose-200 text-rose-700 border border-rose-300 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1 cursor-pointer transition-colors"
+                        title="Admin: Delete Order Record"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>Delete</span>
+                      </button>
                     </div>
                   </div>
                 );

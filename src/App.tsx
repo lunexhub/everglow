@@ -17,7 +17,8 @@ import {
   updateProfileInSupabase,
   saveWithdrawalToSupabase,
   fetchWithdrawalsFromSupabase,
-  fetchTransactionsFromSupabase
+  fetchTransactionsFromSupabase,
+  deleteOrderFromSupabase
 } from './lib/supabaseService';
 
 import { AuthModal } from './components/AuthModal';
@@ -249,6 +250,13 @@ export function App() {
     showNotification(`Waybill tracking link updated!`);
   };
 
+  const handleDeleteOrder = async (orderId: string) => {
+    const orderToDelete = ordersList.find(o => o.id === orderId);
+    setOrdersList(prev => prev.filter(o => o.id !== orderId));
+    await deleteOrderFromSupabase(orderId, orderToDelete?.order_number);
+    showNotification(`Order ${orderToDelete?.order_number || ''} deleted permanently!`);
+  };
+
   // If not logged in, show Auth Screen
   if (!currentUser) {
     return <AuthModal onLoginSuccess={handleLoginSuccess} isDemoMode={false} />;
@@ -451,6 +459,7 @@ export function App() {
             orders={ordersList}
             onUpdateOrderStage={handleUpdateOrderStage}
             onUpdateWaybillUrl={handleUpdateWaybillUrl}
+            onDeleteOrder={handleDeleteOrder}
           />
         )}
         {activeTab === 'admin' && currentUser.role === 'admin' && (

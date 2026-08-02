@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Package, Truck, CheckCircle2, Clock, Download, ExternalLink, MessageSquare, AlertCircle, Link as LinkIcon, Check } from 'lucide-react';
+import { Package, Truck, CheckCircle2, Clock, Download, ExternalLink, MessageSquare, AlertCircle, Link as LinkIcon, Check, Trash2 } from 'lucide-react';
 import { Order, Profile, OrderFulfillmentStatus } from '../types';
 import { generateOrderInvoicePDF } from '../lib/pdfGenerator';
 
@@ -8,13 +8,15 @@ interface MyOrdersViewProps {
   orders?: Order[];
   onUpdateOrderStage?: (orderId: string, stage: OrderFulfillmentStatus) => void;
   onUpdateWaybillUrl?: (orderId: string, url: string) => void;
+  onDeleteOrder?: (orderId: string) => void;
 }
 
 export const MyOrdersView: React.FC<MyOrdersViewProps> = ({
   member,
   orders = [],
   onUpdateOrderStage,
-  onUpdateWaybillUrl
+  onUpdateWaybillUrl,
+  onDeleteOrder
 }) => {
   const [editingUrlOrderId, setEditingUrlOrderId] = useState<string | null>(null);
   const [tempUrlInput, setTempUrlInput] = useState<string>('');
@@ -337,6 +339,22 @@ export const MyOrdersView: React.FC<MyOrdersViewProps> = ({
                     <MessageSquare className="w-3.5 h-3.5" />
                     <span>Support</span>
                   </a>
+
+                  {member.role === 'admin' && onDeleteOrder && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (window.confirm(`Are you sure you want to PERMANENTLY DELETE order ${order.order_number}? This cannot be undone.`)) {
+                          onDeleteOrder(order.id);
+                        }
+                      }}
+                      className="py-2 px-3 bg-rose-100 hover:bg-rose-200 text-rose-700 border border-rose-300 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer transition-colors"
+                      title="Admin: Delete Order Record"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Delete Order</span>
+                    </button>
+                  )}
                 </div>
               </div>
             );

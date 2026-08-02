@@ -394,6 +394,26 @@ export const updateOrderStatusInSupabase = async (
   }
 };
 
+export const deleteOrderFromSupabase = async (orderId: string, orderNumber?: string): Promise<boolean> => {
+  try {
+    const { error } = await supabase
+      .from('orders')
+      .delete()
+      .eq('id', orderId);
+
+    if (error && orderNumber) {
+      await supabase
+        .from('orders')
+        .delete()
+        .eq('order_number', orderNumber);
+    }
+    return true;
+  } catch (err) {
+    console.error('Failed to delete order from Supabase:', err);
+    return false;
+  }
+};
+
 // ----------------------------------------------------
 // PROFILES & AUTHENTICATION SUPABASE SERVICE
 // ----------------------------------------------------
