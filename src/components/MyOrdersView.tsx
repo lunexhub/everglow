@@ -96,6 +96,7 @@ export const MyOrdersView: React.FC<MyOrdersViewProps> = ({
           className={`px-3 py-1.5 rounded-lg text-[11px] font-extrabold transition-all whitespace-nowrap ${
             filterStatus === 'delivered' ? 'bg-slate-900 text-white shadow-xs' : 'text-slate-600 hover:bg-slate-50'
           }`}
+        >
           🏁 Delivered ({orders.filter(o => o.fulfillment_status === 'delivered').length})
         </button>
       </div>
