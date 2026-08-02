@@ -71,7 +71,7 @@ export const WalletView: React.FC<WalletViewProps> = ({
   return (
     <div className="space-y-5 pb-20">
       {/* Wallet Overview 3-Column Desktop Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {/* Wallet Balance Hero Card */}
         <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950 text-white rounded-2xl p-5 shadow-xl border border-amber-500/20 relative overflow-hidden flex flex-col justify-between">
           <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>

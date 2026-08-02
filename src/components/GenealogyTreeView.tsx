@@ -135,7 +135,7 @@ export const GenealogyTreeView: React.FC<GenealogyTreeViewProps> = ({
       </div>
 
       {/* Network Stats Bar */}
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="card-white p-3 text-center">
           <p className="text-[10px] font-bold text-slate-400 uppercase">Total Team</p>
           <p className="text-xl font-extrabold text-slate-900 mt-0.5">{downlineTree.length}</p>

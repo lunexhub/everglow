@@ -428,8 +428,8 @@ export function App() {
         </div>
       )}
 
-      {/* Main Content Area (Responsive Grid Container) */}
-      <main className="flex-1 p-4 max-w-lg mx-auto w-full lg:ml-64 lg:max-w-7xl lg:p-8">
+      {/* Main Content Area (Responsive Desktop Grid Container) */}
+      <main className="flex-1 p-4 max-w-lg mx-auto w-full lg:ml-64 lg:mx-0 lg:max-w-none lg:w-[calc(100vw-16rem)] lg:p-8 min-w-0">
         {activeTab === 'store' && (
           <StoreView
             products={productsList}

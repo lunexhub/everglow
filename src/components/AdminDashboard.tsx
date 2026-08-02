@@ -668,7 +668,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* Admin Quick Nav Bar (Sticky on Scroll) */}
       <div className="sticky top-11 lg:top-0 z-20 w-full py-2 bg-[#FFF1F5]/95 backdrop-blur-md transition-all">
-        <div className="flex gap-1 overflow-x-auto p-1 bg-white rounded-xl border border-slate-200 scrollbar-none shadow-2xs">
+        <div className="flex flex-wrap gap-1.5 p-1.5 bg-white rounded-xl border border-slate-200 shadow-2xs">
         <button
           onClick={() => setActiveTab('combos')}
           className={`px-3 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
