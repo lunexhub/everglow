@@ -367,6 +367,7 @@ export const StoreView: React.FC<StoreViewProps> = ({
         })}
       </div>
     )}
+    </div>
 
       {/* Floating Shopping Trolley & Basket Component */}
       {getCartCount() > 0 && (
