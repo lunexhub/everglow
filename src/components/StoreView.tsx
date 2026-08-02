@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ShoppingBag, ShoppingCart, Sparkles, Tag, ShieldCheck, Plus, Minus, Upload, CheckCircle2, Gift, TrendingUp, Filter, Trash2, ArrowRight, X, ChevronDown, Package } from 'lucide-react';
-import { Product, OrderItem, Profile, Promotion, CommissionSettings } from '../types';
+import { Product, OrderItem, Profile, Promotion, CommissionSettings, Order } from '../types';
 import { generateOrderInvoicePDF } from '../lib/pdfGenerator';
 
 interface StoreViewProps {

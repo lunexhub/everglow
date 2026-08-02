@@ -7,6 +7,7 @@ import {
   fetchPromotionsFromSupabase, 
   fetchOrdersFromSupabase, 
   saveOrderToSupabase, 
+  approveOrderInSupabase,
   updateOrderStatusInSupabase,
   saveProductToSupabase,
   savePromotionToSupabase,
@@ -77,7 +78,7 @@ export function App() {
               const cachedMatch = cachedOrders.find(c => c.id === lo.id || c.order_number === lo.order_number);
               if (cachedMatch && cachedMatch.payment_status === 'approved' && lo.payment_status !== 'approved') {
                 approveOrderInSupabase(lo.id, lo.order_number);
-                return { ...lo, payment_status: 'approved', fulfillment_status: cachedMatch.fulfillment_status || 'packing' };
+                return { ...lo, payment_status: 'approved' as const, fulfillment_status: (cachedMatch.fulfillment_status || 'packing') as OrderFulfillmentStatus };
               }
               if (cachedMatch) {
                 return { ...lo, ...cachedMatch };
