@@ -49,8 +49,9 @@ export const MyOrdersView: React.FC<MyOrdersViewProps> = ({
         </span>
       </div>
 
-      {/* Order Status Filter Bar */}
-      <div className="flex gap-1.5 p-1 bg-white rounded-xl border border-slate-200 overflow-x-auto scrollbar-none">
+      {/* Order Status Filter Bar (Sticky on Scroll) */}
+      <div className="sticky top-11 lg:top-0 z-20 -mx-4 px-4 py-2 bg-[#FFF1F5]/95 backdrop-blur-md transition-all">
+        <div className="flex gap-1.5 p-1 bg-white rounded-xl border border-slate-200 overflow-x-auto scrollbar-none shadow-2xs">
         <button
           type="button"
           onClick={() => setFilterStatus('all')}
@@ -93,10 +94,10 @@ export const MyOrdersView: React.FC<MyOrdersViewProps> = ({
           className={`px-3 py-1.5 rounded-lg text-[11px] font-extrabold transition-all whitespace-nowrap ${
             filterStatus === 'delivered' ? 'bg-slate-900 text-white shadow-xs' : 'text-slate-600 hover:bg-slate-50'
           }`}
-        >
           🏁 Delivered ({orders.filter(o => o.fulfillment_status === 'delivered').length})
         </button>
       </div>
+    </div>
 
       {filteredOrders.length === 0 ? (
         <div className="card-white p-8 text-center space-y-3">

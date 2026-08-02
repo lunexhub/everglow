@@ -163,32 +163,34 @@ export const StoreView: React.FC<StoreViewProps> = ({
         </div>
       )}
 
-      {/* Store Combo Filter Tabs */}
-      <div className="flex gap-1.5 p-1 bg-white rounded-xl border border-slate-200 overflow-x-auto scrollbar-none">
-        <button
-          onClick={() => setActiveTab('all')}
-          className={`px-2.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex-1 ${
-            activeTab === 'all' ? 'bg-[#D4AF37] text-slate-900 shadow-xs' : 'text-slate-600'
-          }`}
-        >
-          All Combos ({inStockProducts.length})
-        </button>
-        <button
-          onClick={() => setActiveTab('beauty')}
-          className={`px-2.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex-1 ${
-            activeTab === 'beauty' ? 'bg-[#D4AF37] text-slate-900 shadow-xs' : 'text-slate-600'
-          }`}
-        >
-          Beauty Combos ✨
-        </button>
-        <button
-          onClick={() => setActiveTab('essentials')}
-          className={`px-2.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex-1 ${
-            activeTab === 'essentials' ? 'bg-[#D4AF37] text-slate-900 shadow-xs' : 'text-slate-600'
-          }`}
-        >
-          Hygiene Combos 🧴
-        </button>
+      {/* Store Combo Filter Tabs (Sticky on Scroll) */}
+      <div className="sticky top-11 lg:top-0 z-20 -mx-4 px-4 py-2 bg-[#FFF1F5]/95 backdrop-blur-md transition-all">
+        <div className="flex gap-1.5 p-1 bg-white rounded-xl border border-slate-200 overflow-x-auto scrollbar-none shadow-2xs">
+          <button
+            onClick={() => setActiveTab('all')}
+            className={`px-2.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex-1 ${
+              activeTab === 'all' ? 'bg-[#D4AF37] text-slate-900 shadow-xs' : 'text-slate-600'
+            }`}
+          >
+            All Combos ({inStockProducts.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('beauty')}
+            className={`px-2.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex-1 ${
+              activeTab === 'beauty' ? 'bg-[#D4AF37] text-slate-900 shadow-xs' : 'text-slate-600'
+            }`}
+          >
+            Beauty Combos ✨
+          </button>
+          <button
+            onClick={() => setActiveTab('essentials')}
+            className={`px-2.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all flex-1 ${
+              activeTab === 'essentials' ? 'bg-[#D4AF37] text-slate-900 shadow-xs' : 'text-slate-600'
+            }`}
+          >
+            Hygiene Combos 🧴
+          </button>
+        </div>
       </div>
 
       {/* Product Grid */}

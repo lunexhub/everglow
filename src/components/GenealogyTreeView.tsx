@@ -150,9 +150,9 @@ export const GenealogyTreeView: React.FC<GenealogyTreeViewProps> = ({
         </div>
       </div>
 
-      {/* Search & Level Filters */}
-      <div className="space-y-2">
-        <div className="auth-input-container">
+      {/* Search & Level Filters (Sticky on Scroll) */}
+      <div className="sticky top-11 lg:top-0 z-20 -mx-4 px-4 py-2 bg-[#FFF1F5]/95 backdrop-blur-md transition-all space-y-2">
+        <div className="auth-input-container shadow-2xs">
           <Search className="auth-input-icon" />
           <input
             type="text"
