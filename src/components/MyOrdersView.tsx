@@ -9,6 +9,7 @@ interface MyOrdersViewProps {
   onUpdateOrderStage?: (orderId: string, stage: OrderFulfillmentStatus) => void;
   onUpdateWaybillUrl?: (orderId: string, url: string) => void;
   onDeleteOrder?: (orderId: string) => void;
+  onRequestConfirmation?: (title: string, message: string, confirmText: string, variant: 'danger' | 'success' | 'warning' | 'info', onConfirm: () => void) => void;
 }
 
 export const MyOrdersView: React.FC<MyOrdersViewProps> = ({
@@ -16,7 +17,8 @@ export const MyOrdersView: React.FC<MyOrdersViewProps> = ({
   orders = [],
   onUpdateOrderStage,
   onUpdateWaybillUrl,
-  onDeleteOrder
+  onDeleteOrder,
+  onRequestConfirmation
 }) => {
   const [editingUrlOrderId, setEditingUrlOrderId] = useState<string | null>(null);
   const [tempUrlInput, setTempUrlInput] = useState<string>('');
@@ -345,7 +347,15 @@ export const MyOrdersView: React.FC<MyOrdersViewProps> = ({
                     <button
                       type="button"
                       onClick={() => {
-                        if (window.confirm(`Are you sure you want to PERMANENTLY DELETE order ${order.order_number}? This cannot be undone.`)) {
+                        if (onRequestConfirmation) {
+                          onRequestConfirmation(
+                            "Delete Order Record",
+                            `Are you sure you want to PERMANENTLY DELETE order ${order.order_number}? This action cannot be undone and will delete the record from Supabase.`,
+                            "Delete Order",
+                            "danger",
+                            () => onDeleteOrder(order.id)
+                          );
+                        } else {
                           onDeleteOrder(order.id);
                         }
                       }}

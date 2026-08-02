@@ -30,6 +30,7 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { PendingApprovalView } from './components/PendingApprovalView';
 import { EverglowLogo } from './components/EverglowLogo';
 import { SettingsModal } from './components/SettingsModal';
+import { GlobalConfirmationModal, ToastContainer, ConfirmationModalState, ConfirmationVariant, ToastItem } from './components/ModernModalAndToast';
 
 export function App() {
   const [productsList, setProductsList] = useState<Product[]>([]);
@@ -144,7 +145,15 @@ export function App() {
     return 'store';
   });
 
-  const [notificationMsg, setNotificationMsg] = useState<string | null>(null);
+  const [toasts, setToasts] = useState<ToastItem[]>([]);
+  const [globalModal, setGlobalModal] = useState<ConfirmationModalState>({
+    isOpen: false,
+    title: '',
+    message: '',
+    confirmText: '',
+    variant: 'info',
+    onConfirm: () => {}
+  });
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
 
   const changeTab = (tab: 'store' | 'wallet' | 'network' | 'orders' | 'admin') => {
@@ -152,25 +161,34 @@ export function App() {
     localStorage.setItem('everglow_active_tab', tab);
   };
 
-  const [profileSaving, setProfileSaving] = useState(false);
-
-  const handleUpdateProfile = async (updated: Profile) => {
-    setProfileSaving(true);
-    const success = await updateProfileInSupabase(updated);
-    setProfileSaving(false);
-    if (success) {
-      setCurrentUser(updated);
-      localStorage.setItem('everglow_active_user', JSON.stringify(updated));
-      setIsSettingsOpen(false);
-      showNotification('✅ Profile, bank details & address saved!');
-    } else {
-      showNotification('⚠️ Save failed — check your connection and try again.');
-    }
+  const showNotification = (msg: string, type: 'success' | 'error' | 'info' | 'warning' = 'success', title?: string) => {
+    const id = crypto.randomUUID();
+    const newToast: ToastItem = { id, message: msg, type, title };
+    setToasts(prev => [newToast, ...prev].slice(0, 4));
+    setTimeout(() => {
+      setToasts(prev => prev.filter(t => t.id !== id));
+    }, 3500);
   };
 
-  const showNotification = (msg: string) => {
-    setNotificationMsg(msg);
-    setTimeout(() => setNotificationMsg(null), 3000);
+  const handleDismissToast = (id: string) => {
+    setToasts(prev => prev.filter(t => t.id !== id));
+  };
+
+  const requestConfirmation = (
+    title: string,
+    message: string,
+    confirmText: string,
+    variant: ConfirmationVariant = 'warning',
+    onConfirm: () => void
+  ) => {
+    setGlobalModal({
+      isOpen: true,
+      title,
+      message,
+      confirmText,
+      variant,
+      onConfirm
+    });
   };
 
   const handleLoginSuccess = (user: Profile) => {
@@ -420,13 +438,11 @@ export function App() {
         </div>
       </header>
 
-      {/* Toast Notification Banner */}
-      {notificationMsg && (
-        <div className="fixed top-14 left-4 right-4 lg:left-72 lg:right-8 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-xl border border-amber-400 flex items-center gap-2 animate-bounce">
-          <Bell className="w-4 h-4 text-[#D4AF37] shrink-0" />
-          <span>{notificationMsg}</span>
-        </div>
-      )}
+      {/* Toast Notification Container */}
+      <ToastContainer toasts={toasts} onDismiss={handleDismissToast} />
+
+      {/* Global Modern Confirmation Modal */}
+      <GlobalConfirmationModal modal={globalModal} onClose={() => setGlobalModal(prev => ({ ...prev, isOpen: false }))} />
 
       {/* Main Content Area (Responsive Desktop Grid Container) */}
       <main className="flex-1 p-4 max-w-lg mx-auto w-full lg:ml-64 lg:mx-0 lg:max-w-none lg:w-[calc(100vw-16rem)] lg:p-8 min-w-0">
@@ -460,6 +476,7 @@ export function App() {
             onUpdateOrderStage={handleUpdateOrderStage}
             onUpdateWaybillUrl={handleUpdateWaybillUrl}
             onDeleteOrder={handleDeleteOrder}
+            onRequestConfirmation={requestConfirmation}
           />
         )}
         {activeTab === 'admin' && currentUser.role === 'admin' && (

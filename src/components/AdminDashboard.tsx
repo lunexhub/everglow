@@ -2011,37 +2011,48 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       {/* MASTER ACTION CONFIRMATION MODAL */}
       {confirmModal.isOpen && (
-        <div className="fixed inset-0 bg-slate-900/75 backdrop-blur-xs z-50 flex items-center justify-center p-4 overflow-hidden">
-          <div className="bg-white rounded-2xl max-w-sm w-full shadow-2xl border border-pink-200 p-5 space-y-4 my-auto flex flex-col">
-            <div className="flex items-center gap-3">
-              <div className={`p-2.5 rounded-xl text-white shrink-0 ${
-                confirmModal.variant === 'danger' ? 'bg-red-500 shadow-md shadow-red-500/20' :
-                confirmModal.variant === 'success' ? 'bg-emerald-500 shadow-md shadow-emerald-500/20' :
-                confirmModal.variant === 'warning' ? 'bg-amber-500 shadow-md shadow-amber-500/20' :
-                'bg-slate-900 shadow-md'
-              }`}>
-                {confirmModal.variant === 'danger' ? <AlertTriangle className="w-5 h-5" /> :
-                 confirmModal.variant === 'success' ? <CheckCircle2 className="w-5 h-5" /> :
-                 confirmModal.variant === 'warning' ? <AlertTriangle className="w-5 h-5" /> :
-                 <CheckCircle2 className="w-5 h-5" />}
+        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-sm w-full shadow-2xl border border-pink-200 p-6 space-y-5 relative my-auto animate-scale-up">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className={`p-3 rounded-2xl border shrink-0 ${
+                  confirmModal.variant === 'danger' ? 'bg-rose-100 border-rose-200 text-rose-600' :
+                  confirmModal.variant === 'success' ? 'bg-emerald-100 border-emerald-200 text-emerald-600' :
+                  confirmModal.variant === 'warning' ? 'bg-amber-100 border-amber-200 text-amber-600' :
+                  'bg-amber-100 border-amber-300 text-[#8B6508]'
+                }`}>
+                  {confirmModal.variant === 'danger' ? <Trash2 className="w-6 h-6" /> :
+                   confirmModal.variant === 'success' ? <CheckCircle2 className="w-6 h-6" /> :
+                   confirmModal.variant === 'warning' ? <AlertTriangle className="w-6 h-6" /> :
+                   <Sparkles className="w-6 h-6" />}
+                </div>
+                <div>
+                  <span className="text-[9px] font-extrabold uppercase tracking-widest text-[#8B6508] bg-amber-100 px-2 py-0.5 rounded-full border border-amber-200">
+                    Everglow Security
+                  </span>
+                  <h3 className="text-base font-extrabold font-brand-serif text-slate-900 mt-1 leading-tight">
+                    {confirmModal.title}
+                  </h3>
+                </div>
               </div>
-              <div>
-                <h3 className="text-sm font-extrabold text-slate-900 font-brand-serif leading-tight">
-                  {confirmModal.title}
-                </h3>
-                <p className="text-[10px] text-slate-500 font-semibold">Everglow Safety Confirmation</p>
-              </div>
-            </div>
-
-            <p className="text-xs text-slate-700 leading-relaxed font-medium bg-slate-50 p-3 rounded-xl border border-slate-200">
-              {confirmModal.message}
-            </p>
-
-            <div className="flex gap-2 pt-1">
               <button
                 type="button"
                 onClick={() => setConfirmModal(prev => ({ ...prev, isOpen: false }))}
-                className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors"
+                className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <p className="text-xs text-slate-700 leading-relaxed font-medium bg-pink-50/50 p-4 rounded-2xl border border-pink-100">
+              {confirmModal.message}
+            </p>
+
+            <div className="flex gap-2.5 pt-1">
+              <button
+                type="button"
+                onClick={() => setConfirmModal(prev => ({ ...prev, isOpen: false }))}
+                className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-2xl text-xs font-extrabold transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -2052,11 +2063,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   setConfirmModal(prev => ({ ...prev, isOpen: false }));
                   confirmModal.onConfirm();
                 }}
-                className={`flex-1 py-2.5 text-white rounded-xl text-xs font-black shadow-md transition-all ${
-                  confirmModal.variant === 'danger' ? 'bg-red-600 hover:bg-red-700 shadow-red-600/30' :
-                  confirmModal.variant === 'success' ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/30' :
-                  confirmModal.variant === 'warning' ? 'bg-amber-600 hover:bg-amber-700 shadow-amber-600/30' :
-                  'bg-slate-900 hover:bg-slate-800'
+                className={`flex-1 py-3 text-white rounded-2xl text-xs font-black shadow-lg transition-all cursor-pointer ${
+                  confirmModal.variant === 'danger' ? 'bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 shadow-rose-600/30' :
+                  confirmModal.variant === 'success' ? 'bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 shadow-emerald-600/30' :
+                  confirmModal.variant === 'warning' ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 shadow-amber-500/30' :
+                  'bg-gradient-to-r from-[#D4AF37] to-[#C5A028] text-slate-950 shadow-amber-500/30'
                 }`}
               >
                 {confirmModal.confirmText}
