@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Mail, Lock, User, Phone, KeyRound, Upload, CheckCircle, Crown, ArrowRight, ShieldCheck, UserCheck, MessageSquare, Eye, EyeOff, RefreshCw } from 'lucide-react';
 import { Profile } from '../types';
 import { EverglowLogo } from './EverglowLogo';
+import { supabase } from '../lib/supabase';
 import { signInWithSupabase, signUpWithSupabase } from '../lib/supabaseService';
 
 interface AuthModalProps {
   onLoginSuccess: (user: Profile) => void;
   isDemoMode: boolean;
+  membersList?: Profile[];
 }
 
-export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode }) => {
+export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode, membersList = [] }) => {
   const [tab, setTab] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,6 +47,44 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onLoginSuccess, isDemoMode
       setTab('signup');
     }
   }, []);
+
+  // Fetch Sponsor's actual Full Name from Settings / Supabase profiles table whenever sponsorId changes
+  useEffect(() => {
+    if (!sponsorId.trim()) {
+      setSponsorName('');
+      return;
+    }
+
+    const cleanId = sponsorId.trim().toUpperCase();
+
+    // 1. First search in preloaded membersList
+    const matchInList = membersList.find(
+      m => m.sponsor_id.toUpperCase() === cleanId || m.id.toUpperCase() === cleanId
+    );
+    if (matchInList && matchInList.full_name) {
+      setSponsorName(matchInList.full_name);
+      return;
+    }
+
+    // 2. Fetch directly from Supabase profiles table by sponsor_id
+    const fetchSponsorFullName = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('full_name, sponsor_id')
+          .or(`sponsor_id.eq.${cleanId},id.eq.${cleanId}`)
+          .maybeSingle();
+
+        if (data && data.full_name) {
+          setSponsorName(data.full_name);
+        }
+      } catch (err) {
+        console.warn('Sponsor name lookup notice:', err);
+      }
+    };
+
+    fetchSponsorFullName();
+  }, [sponsorId, membersList]);
 
   const handlePopUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {

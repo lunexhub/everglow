@@ -293,7 +293,7 @@ export function App() {
 
   // If not logged in, show Auth Screen
   if (!currentUser) {
-    return <AuthModal onLoginSuccess={handleLoginSuccess} isDemoMode={false} />;
+    return <AuthModal onLoginSuccess={handleLoginSuccess} isDemoMode={false} membersList={membersList} />;
   }
 
   // If new member is pending R100 POP approval
