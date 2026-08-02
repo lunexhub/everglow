@@ -191,6 +191,22 @@ export function App() {
     });
   };
 
+  const [profileSaving, setProfileSaving] = useState(false);
+
+  const handleUpdateProfile = async (updated: Profile) => {
+    setProfileSaving(true);
+    const success = await updateProfileInSupabase(updated);
+    setProfileSaving(false);
+    if (success) {
+      setCurrentUser(updated);
+      localStorage.setItem('everglow_active_user', JSON.stringify(updated));
+      setIsSettingsOpen(false);
+      showNotification('Profile, bank details & address saved successfully!', 'success', 'Profile Updated');
+    } else {
+      showNotification('Save failed — check your connection and try again.', 'error', 'Update Error');
+    }
+  };
+
   const handleLoginSuccess = (user: Profile) => {
     setCurrentUser(user);
     localStorage.setItem('everglow_active_user', JSON.stringify(user));

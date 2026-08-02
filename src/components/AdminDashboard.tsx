@@ -29,7 +29,7 @@ interface AdminDashboardProps {
   membersList?: Profile[];
   commissionSettings?: CommissionSettings;
   onUpdateCommissionSettings?: (settings: CommissionSettings) => void;
-  showNotification?: (message: string) => void;
+  showNotification?: (message: string, type?: 'success' | 'error' | 'info' | 'warning', title?: string) => void;
 }
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({
